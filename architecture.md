@@ -5,19 +5,19 @@
 
 ### DTO
 
-class JobPostingDTO{}
-class UserDto{}
-class JobApplicantDto{}
-class NoteEntryDto{};
-class InterviewDto{}
+* NOTE: There should be a orika mapper for DTO to Entity 
+* NOTE: Refer to the entity for properties
 
+- class JobPostingDTO{}
+- class UserDto{}
+- class JobApplicantDto{}
+- class NoteEntryDto{};
+- class InterviewDto{}
 
-### Mapper
-
-JobPostingDTO to JobPosting
 
 ### Service
 
+```java
 // BasicRepository could be Spring Data JPA JpaRepository.class
 interface BasicRepository<T> implements JpaRepositoryImpl {
     T create(T item);
@@ -93,9 +93,11 @@ class UserLoginService {
     boolean hasUserWithEmail(String email);
 
 }
+```
 
 ### Class
 
+```java
 class Page {
     List<> content;
     integer total;
@@ -106,10 +108,11 @@ class SearchOptions {
     int limit;
     int offset;
 }
+```
 
 ### Entity
 
-
+```java
 enum JobAppRole {
     POSTER,
     SUBMITTER,
@@ -204,60 +207,88 @@ class Interview {
     Set<User> interviewer;
     Date createdBy;
 }
+```
 
 ### Routes
 
 - NOTE: activeUser is passed to template for role checking and updating related DTO.
 
-- HomeController
-- route: /
+#### HomeController
+
+- route: `/`
 - methods: GET
+
+```html
 <app-home activeUser=${user}/>
 <app-server-error-page/>
 <app-404-error-page/>
 <app-login/>
 <app-account-create-form/>
 <app-logout activeUser=${user}/>
+```
 
-- JobsController
-- route: /jobs
-* methods: GET|POST
+#### JobsController
+
+- route: `/jobs`
+- methods: GET|POST
+
+```html
 <app-job-postings jobs=${jobPostings} activeUser=${user}/>
 <app-job-posting-create-form activeUser=${user}/>
+```
 
-- JobController
-- route: /jobs/${job-posting-global-id} 
-* methods: GET|PUT|DELETE 
+#### JobController
 
+- route: `/jobs/${job-posting-global-id}`
+- methods: GET|PUT|DELETE
+
+```html
 <app-job-posting job=${jobPosting}/>
 <app-job-posting-subscribe job=${jobPosting} activeUser=${user}/>
 <app-job-posting-update-form job=${jobPosting} activeUser=${user}/>
 <app-job-posting-application-create-form job=${jobPosting} activeUser=${user}/>
+```
 
-- JobApplicantsController
-- route: /jobs/${job-posting-global-id}/job-applicants(?.csv)
-* methods: GET|POST
+#### JobApplicantsController
+
+- route: `/jobs/${job-posting-global-id}/job-applicants(?.csv)`
+- methods: GET|POST
+
+```html
 <app-job-applicants job="jobPosting" applicants=${applicants}  activeUser=${user}/> 
+```
 
-- JobApplicantController
-- route: /jobs/${job-posting-global-id}/job-applicants/${job-applicant-global-id}
-* methods: GET|PUT
+
+#### JobApplicantController
+
+- route: `/jobs/${job-posting-global-id}/job-applicants/${job-applicant-global-id}`
+- methods: GET|PUT
+
+```html
 <app-job-applicant applicant=${applicant} activeUser=${user}/> 
 <app-job-applicant-progress-update-form applicant=${applicant} activeUser=${user}/>
 <app-job-applicant-interview interview=${interview} activeUser=${user}/>
 <app-job-applicant-note note=${noteEntry} activeUser=${user}/>
+```
 
-- UsersController
-- route: /users/
-* methods: GET
+#### UsersController
+
+- route: `/users/`
+- methods: GET
+
+```html
 <app-users users=${users} activeUser=${user}/>
+```
 
-- UserController
-- route: /users/${user-global-id}/
-* methods: GET|PUT
+#### UserController
+
+- route: `/users/${user-global-id}/`
+- methods: GET|PUT
+
+```html
 <app-user user=${user} activeUser=${user}/>
 <app-user-update-form user=${user}  activeUser=${user}/>
-
+```
 
 
 ### External Services
@@ -277,5 +308,5 @@ class Interview {
 ### TODO
 
 - Add users service, view
-* // 4. review applicants I submitted
-- TODO update JobApplicants vs JobApplication working where needed
+- `// 4. review applicants I submitted`
+- update JobApplicants vs JobApplication working where needed
