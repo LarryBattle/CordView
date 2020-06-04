@@ -1,8 +1,6 @@
 # Cordview - The interview coordiation tool
 - date created: June 1, 2020
 
-## Requirements
-
 ## Architecture
 
 ### DTO
@@ -267,6 +265,8 @@ class Interview {
 - Database: H2
 - Email Serivce: Amazon SeS
 - Messaging: RabbitMQ
+
+![](./architecture_v1.png)
 
 ### Tech
 
