@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
+	id "io.freefair.lombok" version "5.1.0"
 }
 
 group = 'dev.larrybattle'
