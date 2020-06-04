@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'me.larrybattle.cord-view' is invalid and this project uses 'me.larrybattle.cordview' instead.
+* The original package name 'dev.larrybattle.cord-view' is invalid and this project uses 'me.larrybattle.cordview' instead.
 
 # Getting Started
 
