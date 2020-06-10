@@ -14,7 +14,7 @@ public class SearchOptions {
     @Setter
     private int offset;
 
-    SearchOptions(int limit, int offset){
+    public SearchOptions(int limit, int offset){
         this.limit = limit;
         this.offset = offset;
     }

@@ -11,6 +11,9 @@ public class UserMapper extends ConfigurableMapper {
     @Override
     protected void configure(MapperFactory mapperFactory) {
         mapperFactory.classMap(User.class, UserDto.class)
+                .fieldAToB("globalId", "globalId")
+                .fieldAToB("dateCreated", "dateCreated")
+                .fieldAToB("lastUpdated", "lastUpdated")
                 .byDefault()
                 .register();
     }

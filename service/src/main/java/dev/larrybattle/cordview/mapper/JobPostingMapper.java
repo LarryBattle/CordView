@@ -9,8 +9,11 @@ import ma.glasnost.orika.impl.ConfigurableMapper;
 public class JobPostingMapper extends ConfigurableMapper {
 
     @Override
-    protected void configure(MapperFactory mapperFactory){
+    protected void configure(MapperFactory mapperFactory) {
         mapperFactory.classMap(JobPosting.class, JobPostingDto.class)
+            .fieldAToB("globalId", "globalId")
+            .fieldAToB("dateCreated", "dateCreated")
+            .fieldAToB("lastUpdated", "lastUpdated")
             .byDefault()
             .register();
     }
