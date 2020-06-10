@@ -1,1 +1,1 @@
-./gradlew bootRun
+./gradlew bootRun -Pargs=--spring.profiles.active=dev

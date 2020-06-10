@@ -156,7 +156,7 @@ class User {
 }
 
 class JobPosting {
-    String id;
+    Long id;
     String globalId;
     boolean isActive;
     JobPostingState state;
