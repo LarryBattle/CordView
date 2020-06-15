@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@Profile("dev")
+@Profile("!prod")
 public class SeedDB implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(SeedDB.class);
