@@ -12,6 +12,7 @@ public class JobPostingDto {
     private JobPostingState state;
     private String title;
     private String description;
+    private String location;
     private WageType wageType;
     private String wageAmount;
     private boolean isActive;

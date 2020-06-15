@@ -7,9 +7,10 @@ export interface JobPosting {
     lastUpdated: string;
     title : string;
     description: string;
+    location: string;
     wageAmount: string;
     isActive: boolean;
-    internalNotes: string;
-    state : JobPostingState;
-    wageType: JobPostingWageType;
+    internalNotes?: string;
+    state?: JobPostingState;
+    wageType?: JobPostingWageType;
 }
