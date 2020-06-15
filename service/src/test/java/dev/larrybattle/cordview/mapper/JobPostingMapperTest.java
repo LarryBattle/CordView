@@ -5,7 +5,10 @@ import dev.larrybattle.cordview.entity.JobPosting;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class JobPostingMapperTest {
 
@@ -48,4 +51,27 @@ public class JobPostingMapperTest {
         assertEquals(title, entity.getTitle());
         assertEquals(description, entity.getDescription());
     }
+
+    @DisplayName("test dto can't update restricted fields to entity")
+    @Test
+    public void testDtoCanNotUpdateRestrictedFieldsToEntity() {
+        // setup
+        String globalId = "test_globalId";
+        Date dateCreated = new Date();
+        JobPostingDto dto = new JobPostingDto();
+        dto.setGlobalId(globalId);
+        dto.setDateCreated(dateCreated);
+        dto.setLastUpdated(dateCreated);
+
+        JobPostingMapper jobPostingMapper = new JobPostingMapper();
+
+        // when
+        JobPosting entity = jobPostingMapper.map(dto, JobPosting.class);
+
+        // then
+        assertNull(entity.getGlobalId());
+        assertNull(entity.getDateCreated());
+        assertNull(entity.getLastUpdated());
+    }
+
 }
