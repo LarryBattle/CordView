@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobs">
+          <td><a href="#">{{job.title}}</a></td>
+          <td>{{job.location}}</td>
+      </tr>
+    </tbody>
+</table>
