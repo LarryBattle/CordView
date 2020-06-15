@@ -50,6 +50,7 @@ public class JobPostingService {
             savedDto = mapper.map(savedEntity, JobPostingDto.class);
         } catch (Exception e) {
             log.error("Unable to create JobPosting", e);
+            throw e;
         }
 
         return savedDto;

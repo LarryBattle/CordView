@@ -6,22 +6,23 @@ import dev.larrybattle.cordview.entity.User;
 import dev.larrybattle.cordview.entity.WageType;
 import dev.larrybattle.cordview.repository.JobPostingRepository;
 import dev.larrybattle.cordview.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@Slf4j
+@Configuration
 @Profile("!prod")
-public class SeedDB implements CommandLineRunner {
-
-    private static final Logger logger = LoggerFactory.getLogger(SeedDB.class);
+public class SeedDB {
 
     @Autowired
     JobPostingRepository jobPostingRepository;
@@ -29,11 +30,13 @@ public class SeedDB implements CommandLineRunner {
     @Autowired
     UserRepository userRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
-        logger.info("* Seeding database *");
-        seedUsers();
-        seedJobPostings();
+    @Bean
+    public CommandLineRunner initDatabase() throws Exception {
+        return args -> {
+            log.info("* Seeding database *");
+            seedUsers();
+            seedJobPostings();
+        };
     }
 
     @Transactional
@@ -45,7 +48,7 @@ public class SeedDB implements CommandLineRunner {
         );
         users.forEach(user -> userRepository.save(user));
 
-        logger.info("-> User count: " + userRepository.count());
+        log.info("-> User count: " + userRepository.count());
     }
 
     @Transactional
@@ -58,6 +61,6 @@ public class SeedDB implements CommandLineRunner {
 
         jobs.forEach(jobPosting -> jobPostingRepository.save(jobPosting));
 
-        logger.info("-> Job Posting count: " + jobPostingRepository.count());
+        log.info("-> Job Posting count: " + jobPostingRepository.count());
     }
 }
