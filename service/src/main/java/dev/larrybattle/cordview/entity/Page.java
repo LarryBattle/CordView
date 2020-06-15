@@ -1,21 +1,12 @@
 package dev.larrybattle.cordview.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class Page<T> {
-
-    @Getter
-    @Setter
     private List<T> content;
-
-    @Getter
-    @Setter
     private int total;
-
-    @Getter
-    @Setter
     private int count;
 }

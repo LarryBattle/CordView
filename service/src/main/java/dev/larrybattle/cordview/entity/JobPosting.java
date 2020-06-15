@@ -1,5 +1,6 @@
 package dev.larrybattle.cordview.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,51 +21,50 @@ import java.util.UUID;
 @Table(name = "job_posting",
         indexes = {@Index(name = "idx_job_posting_global_id", columnList = "global_id", unique = true)
 })
+@Data
 @Entity
 public class JobPosting {
+    public JobPosting() {
+    }
+
+    public JobPosting(String title, String description, String location, String wageAmount, WageType wageType) {
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.wageAmount = wageAmount;
+        this.wageType = wageType;
+    }
+
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Getter
-    @Setter
     private JobPostingState state = JobPostingState.DRAFT;
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    @Getter
-    @Setter
     private Long id;
 
     @NotBlank
     @Size(max = 70)
-    @Getter
-    @Setter
     private String title;
 
+    // assume markdown as fileformat
     @NotBlank
     @Size(max = 5000)
-    @Getter
-    @Setter
     private String description;
 
+    @NotBlank
+    private String location;
+
     @Enumerated(EnumType.STRING)
-    @Getter
-    @Setter
     private WageType wageType;
 
-    // TODO Store an wageAmount as Hibernate Currency
+    // TODO Store an wageAmount as BigDecimal or Hibernate Currency
     // https://stackoverflow.com/questions/29619958/how-to-persist-classes-like-java-util-currency
     // TODO Add a positive or zero constraint once the data type is converted
-    @Getter
-    @Setter
     private String wageAmount;
 
-    @Getter
-    @Setter
     private boolean isActive;
-
-    @Getter
-    @Setter
     private String internalNotes;
 
     // https://www.baeldung.com/jpa-one-to-one
@@ -71,32 +73,22 @@ public class JobPosting {
 //            fetch = FetchType.LAZY, optional = false)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_id", referencedColumnName = "id")
-    @Getter
-    @Setter
     private User createdBy;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_by_id", referencedColumnName = "id")
-    @Getter
-    @Setter
     private User owner;
 
     // standard methods
-    @Getter
-    @Setter
     @Column(name="global_id")
     private String globalId;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter
-    @Setter
     private Date dateCreated;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter
-    @Setter
     private Date lastUpdated;
 
     @PrePersist

@@ -3,16 +3,19 @@ package dev.larrybattle.cordview.service;
 import dev.larrybattle.cordview.dto.JobPostingDto;
 import dev.larrybattle.cordview.entity.JobPosting;
 import dev.larrybattle.cordview.entity.Page;
-import dev.larrybattle.cordview.entity.SearchOptions;
 import dev.larrybattle.cordview.mapper.JobPostingMapper;
 import dev.larrybattle.cordview.repository.JobPostingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
+@Service
 public class JobPostingService {
 
     private final JobPostingMapper mapper = new JobPostingMapper();
@@ -93,12 +96,25 @@ public class JobPostingService {
     }
 
     // TODO Add search
-    public Page<JobPostingDto> search(@NonNull JobPostingSearchOptions options){
+    public Page<JobPostingDto> search(@NonNull JobPostingSearchOptions options) {
         Objects.requireNonNull(options);
 
         log.debug("TODO: implement search");
 
-        return null;
+        Page<JobPostingDto> page = new Page<>();
+        List<JobPosting> entities = repository.findAll();
+
+        if (0 < entities.size()) {
+            List<JobPostingDto> dtos = entities.stream()
+                    .map(job -> mapper.map(job, JobPostingDto.class))
+                    .collect(Collectors.toList());
+
+            page.setContent(dtos);
+            page.setCount(dtos.size());
+            page.setTotal(dtos.size());
+        }
+
+        return page;
     }
 }
 
