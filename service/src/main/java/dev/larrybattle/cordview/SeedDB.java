@@ -39,7 +39,6 @@ public class SeedDB {
         };
     }
 
-    @Transactional
     public void seedUsers() {
         List<User> users = Arrays.asList(
                 new User("SYSTEM", "SYSTEM", "admin@example.com", "SYSTEM", JobAppRole.ADMIN, true),
@@ -51,7 +50,6 @@ public class SeedDB {
         log.info("-> User count: " + userRepository.count());
     }
 
-    @Transactional
     public void seedJobPostings() {
         List<JobPosting> jobs = Arrays.asList(
                 new JobPosting("Junior Java Microservices Developer", "Know Java? You're hire!", "Dallas, TX", "30.00", WageType.HOURLY),
